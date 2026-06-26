@@ -1,0 +1,2 @@
+# Static-site generator uses the Python standard library only (os, shutil, html, datetime).
+# This file exists so Render's "pip install -r requirements.txt" build step succeeds.
