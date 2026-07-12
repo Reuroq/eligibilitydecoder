@@ -78,6 +78,7 @@ Not affiliated with the NCAA or any school, conference, or athletics body.</p></
 <p class="muted sm">&copy; {datetime.date.today().year} Eligibility Decoder · Updated {ASOF} · Educational information, not eligibility advice.</p>
 </div></footer>
 {extra_js}
+<script defer src="https://feedback.milanswers.com/widget.js" data-site="eligibilitydecoder"></script>
 </body></html>"""
 
 
