@@ -76,10 +76,21 @@ faces possible legal challenges &mdash; verify with your compliance office and t
 Not affiliated with the NCAA or any school, conference, or athletics body.</p></div>
 <div class="ftlinks">{foot}</div></div>
 <p class="muted sm">&copy; {datetime.date.today().year} Eligibility Decoder · Updated {ASOF} · Educational information, not eligibility advice.</p>
+<p class="muted sm">More tools from the same maker: <a href="https://otreportbuilder.com/">OT Report Builder — school OT reports</a> · <a href="https://medicaid-work-requirement-checker.com/">Medicaid Work Requirement Checker — exemptions by state</a></p>
 </div></footer>
 {extra_js}
 <script defer src="https://feedback.milanswers.com/widget.js" data-site="eligibilitydecoder"></script>
 </body></html>"""
+
+
+def website_jsonld():
+    import json
+    return ('<script type="application/ld+json">' + json.dumps({
+        "@context": "https://schema.org", "@type": "WebSite",
+        "name": SITE, "url": f"https://{DOMAIN}/",
+        "description": ("Independent checker and plain-English explainer for the NCAA's "
+                        "five-year, age-based Division I eligibility model adopted June 23, 2026.")})
+        + '</script>')
 
 
 def faq_jsonld(pairs):
@@ -171,7 +182,7 @@ def home():
     return shell("/", "NCAA 5-Year Age-Based Eligibility — Checker & Explainer | Eligibility Decoder",
                  "Decode the NCAA's new age-based 5-year eligibility model (adopted June 2026). Free interactive checker: "
                  "see how many years of eligibility you have left, plus plain-English explainers. Independent, not the NCAA.",
-                 body, extra_js='<script src="/app.js"></script>')
+                 body, extra_js='<script src="/app.js"></script>', jsonld=website_jsonld())
 
 
 def checker_page():
@@ -523,6 +534,9 @@ def build():
         f"- /old-vs-new.html\n- /are-redshirts-gone.html\n- /faq.html\n")
     if INDEXNOW_KEY:
         open(os.path.join(DIST, f"{INDEXNOW_KEY}.txt"), "w", encoding="utf-8").write(INDEXNOW_KEY)
+    # fleet-wide IndexNow key (shared across all fleet sites)
+    open(os.path.join(DIST, "c1f4a97d3b5e48d2a6f80c9e2d715b4a.txt"), "w",
+         encoding="utf-8").write("c1f4a97d3b5e48d2a6f80c9e2d715b4a")
     print(f"built {len(pages)} pages + sitemap/robots/llms into {DIST} (GA={'on' if GA_ID else 'off'}, IndexNow={'on' if INDEXNOW_KEY else 'off'})")
 
 
