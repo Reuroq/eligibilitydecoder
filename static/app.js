@@ -30,9 +30,11 @@
     }
     var dob = new Date(dobStr + 'T00:00:00');
     var b19y = dob.getFullYear() + 19;
-    // "academic year following the 19th birthday": the fall on/after the 19th birthday.
-    // 19th birthday in Aug or later -> the next fall; otherwise the same fall.
-    var fallAfter19 = (dob.getMonth() >= 7) ? b19y + 1 : b19y;
+    // NCAA rule: the clock starts "the start of the regular academic year immediately
+    // following the student-athlete's 19th birthday, if the student-athlete turns 19
+    // years old before Sept. 1." Turn 19 before Sept 1 (Jan-Aug birthday) -> that same
+    // fall; turn 19 on/after Sept 1 (Sep-Dec birthday) -> the following fall.
+    var fallAfter19 = (dob.getMonth() >= 8) ? b19y + 1 : b19y;
     var clockStart = Math.min(enrollY, fallAfter19);
 
     // New model: 5 continuous years from clockStart; "years left" = window years still ahead.
@@ -74,7 +76,7 @@
       h += '<div class="rflag">&#9888;&#65039; Your five-year clock started in <strong>' + clockStart + '</strong> — the academic year after you turned 19 — which is <strong>before</strong> you enrolled (fall ' + enrollY + '). That delayed-enrollment age penalty costs you roughly <strong>' + lost + ' ' + (lost === 1 ? 'year' : 'years') + '</strong>. More on <a href="/transfers-juco-international.html">JUCO, international &amp; delayed enrollment</a>.</div>';
     }
 
-    h += '<p class="rcaveat">This is an estimate, not a ruling. Your school\'s compliance office makes the official determination, and exceptions can pause the clock. The rule was adopted June 23, 2026 and may face legal challenges. <a href="/the-rule-explained.html">How the rule works &rarr;</a></p>';
+    h += '<p class="rcaveat">This is an estimate, not a ruling. Your school\'s compliance office makes the official determination, and exceptions can pause the clock. The rule was adopted June 23, 2026 and is being challenged in court &mdash; a July 9, 2026 preliminary injunction (Hamilton County, Ohio) currently blocks enforcement against the 24 plaintiff basketball players while the NCAA appeals, and rules remain in flux. <a href="/the-rule-explained.html">How the rule works &rarr;</a></p>';
 
     res.className = 'result ok';
     res.innerHTML = h;

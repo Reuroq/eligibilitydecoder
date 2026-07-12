@@ -125,3 +125,8 @@ table.cmp tbody tr:nth-child(even){background:#f8fafc}
   .tool{margin-top:-22px;padding:20px}
   h1{font-size:1.7rem}
 }
+
+/* dated litigation-status note */
+.litnote{margin:18px 0;background:#fff8e6;border:1px solid #f0d68a;border-left:5px solid #d9a514;border-radius:9px;padding:13px 16px;font-size:.92rem;line-height:1.55;color:#5c4a12}
+.litnote a{color:#7a5c00;text-decoration:underline}
+.litnote .litsrc{display:block;margin-top:6px;font-size:.82rem;color:#8a7534}

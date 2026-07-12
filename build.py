@@ -8,7 +8,7 @@ import os, shutil, html, datetime
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, "dist")
 STATIC = os.path.join(ROOT, "static")
-ASOF = "June 2026"
+ASOF = "July 2026"
 SITE = "Eligibility Decoder"
 DOMAIN = "eligibilitydecoder.com"
 GA_ID = os.environ.get("CLI_GA_ID", "")
@@ -89,6 +89,22 @@ def faq_jsonld(pairs):
                         "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in pairs]}) + "</script>")
 
 
+# ── dated litigation-status note (homepage, current-athletes, timeline) ───────
+LIT_NOTE = """
+<div class="litnote"><strong>&#9878;&#65039; Litigation update (as of July 10, 2026):</strong> On July 9, a Hamilton County, Ohio
+judge granted a <strong>preliminary injunction</strong> blocking the NCAA from enforcing the age-based rule against the
+24 men's and women's basketball players who sued &mdash; the court ordered they may compete in 2026&ndash;27 and use the
+transfer portal while the case proceeds. The NCAA calls the ruling wrong and is seeking a stay and appeal. Separately, a
+federal antitrust class action (<em>Campbell v. NCAA</em>, N.D. Ill., filed June 25, 2026) challenges the rule on behalf of
+athletes who finished a fourth season in 2025&ndash;26. For now the injunction covers <strong>only the plaintiffs</strong> &mdash;
+the rules are in flux, and your school's compliance office decides what applies to you.
+<span class="litsrc">Sources:
+<a href="https://frontofficesports.com/judge-orders-ncaa-grandfather-athletes-eligibility-model/" rel="nofollow">Front Office Sports</a> &middot;
+<a href="https://www.fox19.com/2026/07/10/hamilton-county-judge-grants-injunction-over-fifth-year-eligibility-ncaa-athletes/" rel="nofollow">FOX19 Cincinnati</a> &middot;
+<a href="https://natlawreview.com/article/ncaa-age-based-eligibility-rule-faces-antitrust-challenge" rel="nofollow">National Law Review</a></span></div>
+"""
+
+
 # ── the checker (shared markup; logic in app.js) ──────────────────────────────
 CHECKER = """
 <div class="tool" id="checker">
@@ -124,6 +140,7 @@ def home():
   plain-English breakdown.</p>
 </div></section>
 <section class="wrap">
+{LIT_NOTE}
 {CHECKER}
 </section>
 <section class="wrap cards">
@@ -298,9 +315,10 @@ see <a href="/current-athletes.html">current athletes</a>.</p>
 
 
 def current_athletes():
-    body = """
+    body = f"""
 <section class="wrap narrow"><nav class="crumbs"><a href="/">Home</a> › Current Athletes</nav>
 <h1>Already playing? How the new rule treats you</h1>
+{LIT_NOTE}
 <div class="prose">
 <p class="lead">If you're a <strong>current Division I athlete</strong> with eligibility remaining after 2025&ndash;26, or you
 <strong>first enroll in fall 2026</strong>, you don't simply get forced onto the new clock. Schools apply the
@@ -356,9 +374,10 @@ before you enrolled, it will flag it and show the reduced window.</p>
 
 
 def timeline():
-    body = """
+    body = f"""
 <section class="wrap narrow"><nav class="crumbs"><a href="/">Home</a> › When It Takes Effect</nav>
 <h1>When the new eligibility rule takes effect</h1>
+{LIT_NOTE}
 <div class="prose">
 <p class="lead">The rule was <strong>adopted June 23, 2026</strong>, but it phases in by enrollment year.</p>
 <h2>Fall 2027 and later — full new model</h2>
